@@ -12,6 +12,12 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let session = require('express-session');
+
+//SERVER
+let mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:');
+// var MongoClient = require('mongodb').MongoClient;
+
 let includeAll = require('include-all');
 let errors = includeAll({
 	dirname: path.join(__dirname, 'errors'),
@@ -30,7 +36,7 @@ let auth = require('./routes/auth');
 
 let app = express();
 
-let sessionConfig = _.extend({}, config.session, {store: new RedisStore()});
+let sessionConfig = _.extend({}, config.session);
 app.use(session(sessionConfig));
 app.use(howhap({availableErrors: errors}));
 
